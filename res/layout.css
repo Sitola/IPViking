@@ -1,0 +1,12 @@
+
+div#content .overlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+
+#rate-graph
+{
+  display:none;
+}

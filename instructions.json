@@ -1,0 +1,18 @@
+{
+	"main_script": "ipviking.js",
+	"width": 1000,
+	"height": 700,
+	"animation": true,
+	"dependencies": [
+		"res/d3.js",
+		"res/presentations.js",
+		"res/queue.js",
+		"res/topojson.js"
+	],
+	"title": "IpViking",
+	"version": "1.0.0",
+	"description": "Test to visualise points.",
+	"keywords": [ "webtraffic", "ipwiking", "plugin" ],
+	"author": "Peter Stanko <stanko@mail.muni.cz>",
+	"license": "SAGE2-Software-License"
+}
