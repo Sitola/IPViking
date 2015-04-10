@@ -60,12 +60,8 @@ var ipviking = SAGE2_App.extend( {
 		"use strict";
 		// http://isc.sans.org
 
+		var _t = this;
 
-
-		var approvedDomains = ['norse-corp.com', 'mitsui.com', 'mbsd.jp', 'muni.cz', 'localhost'];
-		if (top.location != self.location && approvedDomains.indexOf(top.location.hostname) === -1) {
-		    top.location = self.location.href
-		}
 
 		var refreshSeconds = 60 * 60 * 6; // 6 hours
 		setTimeout("location.reload()", refreshSeconds * 1000);
@@ -248,8 +244,17 @@ var ipviking = SAGE2_App.extend( {
 
 
 		    // Set up the map in d3
-		    var width = window.innerWidth,
-		        height = window.innerHeight;
+		    /*var width = window.innerWidth,
+		        height = window.innerHeight;*/
+
+		    var width =  parseFloat(_t.element.style.width);
+		    var height =  parseFloat(_t.element.style.height);
+
+		    console.log("width: " + width);
+		    console.log("height: " + height);
+
+		    console.log("scale: " + width / 8.5);
+		    console.log("translate: " + width/2 + " " + height/1.7);
 
 		    // Project from latlng to pixel coords
 		    var projection = d3.geo.mercator()
@@ -1367,55 +1372,7 @@ var ipviking = SAGE2_App.extend( {
 		            .node().getContext("2d")
 		            .drawImage(particler(255, 255, 255, 1),
 		                       width / 8, height / 8, width, height);
-		        /*var legend = d3.select("#legend-container")
-		            .append("div")
-		            .attr("id", "legend");
-
-		        var attack = legend.append("div"),
-		            width = 20, height = 20;
-		        attack.append("h4").text("Each particle represents an attack.");
-		        attack.append("canvas")
-		            .attr("width", width * 2)
-		            .attr("height", height * 2)
-		            .node().getContext("2d")
-		            .drawImage(particler(255, 255, 255, 1),
-		                       width / 2, height / 2, width, height);
-
-		        var clusters = legend.append("div").attr("class", "clusters");
-		        clusters.append("h4").text("Attack origins are grouped into clusters.");
-
-		        var height = 30;
-		        var clusterList = clusters.append("ul").selectAll("li")
-		            .data([1, 10, 200])
-		          .enter().append("li");
-		        clusterList.append("svg")
-		            .style("width", function(d) { return circleScale(d) * 2; })
-		            .style("height", height)
-		          .append("circle")
-		            .attr("fill", "white")
-		            .attr("cy", function(d) { return height - circleScale(d); })
-		            .attr("cx", function(d) { return circleScale(d); })
-		            .attr("r", function(d) { return circleScale(d); });
-		        clusterList.append("p")
-		            .text(function(d) { return d; });
-
-		        var countryColors = legend.append("div").attr("class", "country-colors");
-		        countryColors.append("h4").text("Countries are shaded in as they're attacked.");
-
-		        var r = 4;
-		        var countryColorList = countryColors.append("ul").selectAll("li")
-		            .data([1, 5, 25, 100, 500])
-		          .enter().append("li");
-		        countryColorList.append("svg")
-		            .style("width", r * 2)
-		            .style("height", r * 2)
-		          .append("circle")
-		            .attr("fill", function(d) { return settings.countryColor(d); })
-		            .attr("cy", r)
-		            .attr("cx", r)
-		            .attr("r", r);
-		        countryColorList.append("p")
-		            .text(function(d) { return d; });*/
+		     
 		    })();
 
 		    /*
@@ -1849,19 +1806,7 @@ var ipviking = SAGE2_App.extend( {
 		            },
 
 		            toggle: function() {
-		                /*var dataset = this.elt.node().dataset;
-		                var button = d3.selectAll(".play-pause");
-
-		                if (this.paused()) {
-		                    button.classed("icon-play", false);
-		                    button.classed("icon-pause", true);
-		                    this.elt.node().dataset.paused = "false";
-		                    this.unbuffer();
-		                } else {
-		                    button.classed("icon-pause", false);
-		                    button.classed("icon-play", true);
-		                    this.elt.node().dataset.paused = "true";
-		                }*/
+		               
 		            }
 		        }
 		        /*pauser.elt.on("click", function() { pauser.toggle(); });*/
@@ -2017,7 +1962,15 @@ var ipviking = SAGE2_App.extend( {
 	},
 
 	resize: function(date) {
+        var width = this.element.style.width;
+        var height = this.element.style.height;
+
+        var visible_content = document.getElementById("visible_content");
+        visible_content.width = width;
+        visible_content.height = height;
+
         console.log("resize> " + this.element.width + " : " + this.element.height);
+
 		this.refresh(date);
 
 	},
